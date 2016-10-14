@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using WebCore.API.Models;
 
 namespace WebCore.API.Controllers
 {
@@ -13,12 +14,19 @@ namespace WebCore.API.Controllers
         }
 
 
+        /// <summary>
+        /// Returns all the available notes.
+        /// </summary>
         [HttpGet]
         public IEnumerable<Note> GetAll()
         {
             return _notes.AsReadOnly();
         }
 
+        /// <summary>
+        /// Returns a particular note.
+        /// </summary>
+        /// <param name="id"></param>
         [HttpGet("{id}", Name = "GetNote")]
         public IActionResult GetById(string id)
         {
@@ -46,12 +54,6 @@ namespace WebCore.API.Controllers
         public void Delete(string id)
         {
             _notes.RemoveAll(n => n.Id == id);
-        }
-
-        public class Note
-        {
-            public string Id { get; set; }
-            public string Content { get; set; }
         }
     }
 }
